@@ -62,7 +62,7 @@ export default function SurveyPage({ participants, submitRatings }) {
   ];
 
   return (
-    <div className="p-6 max-w-2xl mx-auto">
+    <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-2">Survey für {participant.name}</h1>
       <p className="text-gray-600 mb-6">Gruppe: {participant.group}</p>
       
@@ -74,16 +74,16 @@ export default function SurveyPage({ participants, submitRatings }) {
       
       <div className="space-y-8">
         {questions.map((q) => (
-          <div key={q.key} className="border p-4 rounded">
-            <label className="block font-semibold mb-4">{q.label}</label>
+          <div key={q.key} className="border p-5 rounded">
+            <label className="block font-semibold mb-5 text-lg">{q.label}</label>
             
-            <div className="mb-3 flex justify-between text-xs text-gray-600 italic px-8">
-              <span className="max-w-[45%]">{q.leftLabel}</span>
-              <span className="max-w-[45%] text-right">{q.rightLabel}</span>
+            <div className="mb-4 grid grid-cols-2 gap-8 text-sm text-gray-600 italic">
+              <span className="text-left">{q.leftLabel}</span>
+              <span className="text-right">{q.rightLabel}</span>
             </div>
             
-            <div className="flex items-center gap-3">
-              <span className="text-sm text-gray-800 font-bold w-4">1</span>
+            <div className="flex items-center gap-4">
+              <span className="text-base text-gray-800 font-bold min-w-[20px]">1</span>
               <input
                 type="range"
                 min="1"
@@ -94,8 +94,10 @@ export default function SurveyPage({ participants, submitRatings }) {
                 className="flex-1 h-2"
                 style={{ accentColor: '#4F46E5' }}
               />
-              <span className="text-sm text-gray-800 font-bold w-4">7</span>
-              <span className="font-bold text-2xl ml-6 w-12 text-indigo-600 text-denter">{q.state}</span>
+              <span className="text-base text-gray-800 font-bold min-w-[20px]">7</span>
+              <div className="ml-8 min-w-[60px] text-center">
+                <span className="font-bold text-3xl text-indigo-600">{q.state}</span>
+              </div>
             </div>
           </div>
         ))}
