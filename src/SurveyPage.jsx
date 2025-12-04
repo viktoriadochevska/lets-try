@@ -10,6 +10,7 @@ export default function SurveyPage({ participants, submitRatings }) {
   const [satisfaction, setSatisfaction] = useState(4);
   const [risk, setRisk] = useState(4);
   const [stay, setStay] = useState(4);
+  const [saved, setSaved] = useState(false);
 
   if (!participant) return (
     <div className="p-6">
@@ -22,7 +23,7 @@ export default function SurveyPage({ participants, submitRatings }) {
 
   function handleSubmit() {
     submitRatings(participant.id, { success, satisfaction, risk, stay });
-    navigate("/");
+    setSaves(true);
   }
 
   const questions = [
@@ -56,6 +57,12 @@ export default function SurveyPage({ participants, submitRatings }) {
     <div className="p-6 max-w-2xl mx-auto">
       <h1 className="text-2xl font-bold mb-2">Survey für {participant.name}</h1>
       <p className="text-gray-600 mb-6">Gruppe: {participant.group}</p>
+
+      {saved && (
+  <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+    ✓ Erfolgreich gespeichert!
+  </div>
+)}
       
       <div className="space-y-6">
         {questions.map((q) => (
