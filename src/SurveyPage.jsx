@@ -32,7 +32,7 @@ export default function SurveyPage({ participants, submitRatings }) {
       label: "Wie erfolgreich schätzen Sie diese Beziehung ein?", 
       state: success, 
       setState: setSuccess,
-      leftLabel: "gar nicht erfolgreich   ",
+      leftLabel: "gar nicht erfolgreich  - ",
       rightLabel: "sehr erfolgreich"
     },
     { 
@@ -40,7 +40,7 @@ export default function SurveyPage({ participants, submitRatings }) {
       label: "Wie zufrieden wären Sie in dieser Beziehung?", 
       state: satisfaction, 
       setState: setSatisfaction,
-      leftLabel: "überhaupt nicht zufrieden   ",
+      leftLabel: "überhaupt nicht zufrieden  - ",
       rightLabel: "sehr zufrieden"
     },
     { 
@@ -48,7 +48,7 @@ export default function SurveyPage({ participants, submitRatings }) {
       label: "Wie riskant ist die Entscheidung in der Beziehung zu bleiben?", 
       state: risk, 
       setState: setRisk,
-      leftLabel: "sehr riskant   ",
+      leftLabel: "sehr riskant  - ",
       rightLabel: "gar nicht riskant"
     },
     { 
@@ -56,7 +56,7 @@ export default function SurveyPage({ participants, submitRatings }) {
       label: "Wie wahrscheinlich würden Sie in dieser Beziehung bleiben?", 
       state: stay, 
       setState: setStay,
-      leftLabel: "sehr unwahrscheinlich   ",
+      leftLabel: "sehr unwahrscheinlich  - ",
       rightLabel: "sehr wahrscheinlich"
     }
   ];
