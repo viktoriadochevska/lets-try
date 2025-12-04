@@ -72,18 +72,18 @@ export default function SurveyPage({ participants, submitRatings }) {
         </div>
       )}
       
-      <div className="space-y-6">
+      <div className="space-y-8">
         {questions.map((q) => (
           <div key={q.key} className="border p-4 rounded">
-            <label className="block font-semibold mb-3">{q.label}</label>
+            <label className="block font-semibold mb-4">{q.label}</label>
             
-            <div className="mb-2 flex justify-between text-xs text-gray-600 italic">
-              <span>{q.leftLabel}</span>
-              <span>{q.rightLabel}</span>
+            <div className="mb-3 flex justify-between text-xs text-gray-600 italic px-8">
+              <span className="max-w-[45%]">{q.leftLabel}</span>
+              <span className="max-w-[45%] text-right">{q.rightLabel}</span>
             </div>
             
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-800 font-bold">1</span>
+            <div className="flex items-center gap-3">
+              <span className="text-sm text-gray-800 font-bold w-4">1</span>
               <input
                 type="range"
                 min="1"
@@ -94,8 +94,8 @@ export default function SurveyPage({ participants, submitRatings }) {
                 className="flex-1 h-2"
                 style={{ accentColor: '#4F46E5' }}
               />
-              <span className="text-sm text-gray-800 font-bold">7</span>
-              <span className="font-bold text-xl ml-2 w-8 text-indigo-600">{q.state}</span>
+              <span className="text-sm text-gray-800 font-bold w-4">7</span>
+              <span className="font-bold text-2xl ml-6 w-12 text-indigo-600 text-denter">{q.state}</span>
             </div>
           </div>
         ))}
