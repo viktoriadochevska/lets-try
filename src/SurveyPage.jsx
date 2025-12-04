@@ -45,7 +45,7 @@ export default function SurveyPage({ participants, submitRatings }) {
       label: "Wie zufrieden wären Sie in dieser Beziehung?", 
       state: satisfaction, 
       setState: setSatisfaction,
-      leftLabel: "überhaupt nicht zufrieden  - ",
+      leftLabel: "überhaupt nicht zufrieden   - ",
       rightLabel: "sehr zufrieden"
     },
     { 
@@ -53,7 +53,7 @@ export default function SurveyPage({ participants, submitRatings }) {
       label: "Wie riskant ist die Entscheidung in der Beziehung zu bleiben?", 
       state: risk, 
       setState: setRisk,
-      leftLabel: "sehr riskant  - ",
+      leftLabel: "sehr riskant   - ",
       rightLabel: "gar nicht riskant"
     },
     { 
@@ -61,7 +61,7 @@ export default function SurveyPage({ participants, submitRatings }) {
       label: "Wie wahrscheinlich würden Sie in dieser Beziehung bleiben?", 
       state: stay, 
       setState: setStay,
-      leftLabel: "sehr unwahrscheinlich  - ",
+      leftLabel: "sehr unwahrscheinlich   - ",
       rightLabel: "sehr wahrscheinlich"
     }
   ];
@@ -69,7 +69,10 @@ export default function SurveyPage({ participants, submitRatings }) {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-2">Survey für {participant.name}</h1>
-      <p className=""text-gray-800 text-base leading-relaxed">
+      <p className="text-gray-600 mb-4">Gruppe: {participant.group}</p>
+      
+      <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+        <p className="text-gray-800 text-base leading-relaxed">
           {instructions[participant.group]}
         </p>
       </div>
