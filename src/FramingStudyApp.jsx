@@ -39,7 +39,7 @@ export default function FramingStudyApp({ participants, setParticipants }) {
 }
 
   function impressionScore(r) {
-    return (r.success + (7 - r.satisfaction) + (7 - r.risk) + (7 - r.stay)) / 4;
+    return (r.success + r.satisfaction + r.risk + r.stay) / 4;
   }
 
   const groupAScores = participants
