@@ -26,6 +26,11 @@ export default function SurveyPage({ participants, submitRatings }) {
     setSaved(true);
   }
 
+  const instructions = {
+    A: "Die Person, die Sie seit 6 Monaten daten, besitzt 4 der 5 Eigenschaften, die Ihnen wichtig sind, mit Ausnahme der ersten…",
+    B: "Der Person, die Sie seit 6 Monaten daten, fehlt die wichtigste Eigenschaft…"
+  };
+
   const questions = [
     { 
       key: "success", 
