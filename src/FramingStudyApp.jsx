@@ -17,20 +17,26 @@ export default function FramingStudyApp({ participants, setParticipants }) {
 </button>
 
   function addParticipant() {
-    if (!nameInput.trim()) return;
-    const id = Date.now().toString(36);
-
-    const group =
-      groupAssignMode === "auto"
-        ? participants.filter((p) => p.group === "A").length <=
-          participants.filter((p) => p.group === "B").length
-          ? "A"
-          : "B"
-        : manualGroup;
-
-    setParticipants((s) => [...s, { id, name: nameInput.trim(), group, ratings: null }]);
-    setNameInput("");
-  }
+  if (!nameInput.trim()) return;
+  const id = Date.now().toString(36);
+  const group = groupAssignMode === "auto"
+    ? participants.filter((p) => p.group === "A").length <= 
+      participants.filter((p) => p.group === "B").length
+      ? "A"
+      : "B"
+    : manualGroup;
+  
+  const newParticipant = { 
+    id, 
+    name: nameInput.trim(), 
+    group, 
+    ratings: null 
+  };
+  
+  // Pass the new array directly, not a function
+  setParticipants([...participants, newParticipant]);
+  setNameInput("");
+}
 
   function impressionScore(r) {
     return (r.success + (7 - r.satisfaction) + (7 - r.risk) + (7 - r.stay)) / 4;
