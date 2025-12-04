@@ -6,10 +6,10 @@ export default function SurveyPage({ participants, submitRatings }) {
   const navigate = useNavigate();
   const participant = participants.find(p => p.id === participantId);
   
-  const [success, setSuccess] = useState(4);
-  const [satisfaction, setSatisfaction] = useState(4);
-  const [risk, setRisk] = useState(4);
-  const [stay, setStay] = useState(4);
+  const [success, setSuccess] = useState(1);
+  const [satisfaction, setSatisfaction] = useState(1);
+  const [risk, setRisk] = useState(1);
+  const [stay, setStay] = useState(1);
   const [saved, setSaved] = useState(false);
 
   if (!participant) return (
@@ -23,33 +23,41 @@ export default function SurveyPage({ participants, submitRatings }) {
 
   function handleSubmit() {
     submitRatings(participant.id, { success, satisfaction, risk, stay });
-    setSaves(true);
+    setSaved(true);
   }
 
   const questions = [
     { 
       key: "success", 
-      label: "Wie erfolgreich schätzen Sie diese Person ein?", 
+      label: "Wie erfolgreich schätzen Sie diese Beziehung ein?", 
       state: success, 
-      setState: setSuccess 
+      setState: setSuccess,
+      leftLabel: "gar nicht erfolgreich",
+      rightLabel: "sehr erfolgreich"
     },
     { 
       key: "satisfaction", 
-      label: "Wie zufrieden wäre diese Person mit dem Ergebnis?", 
+      label: "Wie zufrieden wären Sie in dieser Beziehung?", 
       state: satisfaction, 
-      setState: setSatisfaction 
+      setState: setSatisfaction,
+      leftLabel: "überhaupt nicht zufrieden",
+      rightLabel: "sehr zufrieden"
     },
     { 
       key: "risk", 
-      label: "Wie riskant ist die Entscheidung?", 
+      label: "Wie riskant ist die Entscheidung in der Beziehung zu bleiben?", 
       state: risk, 
-      setState: setRisk 
+      setState: setRisk,
+      leftLabel: "sehr riskant",
+      rightLabel: "gar nicht riskant"
     },
     { 
       key: "stay", 
-      label: "Würde die Person bei ihrer Entscheidung bleiben?", 
+      label: "Wie wahrscheinlich würden Sie in dieser Beziehung bleiben?", 
       state: stay, 
-      setState: setStay 
+      setState: setStay,
+      leftLabel: "sehr unwahrscheinlich",
+      rightLabel: "sehr wahrscheinlich"
     }
   ];
 
@@ -57,44 +65,53 @@ export default function SurveyPage({ participants, submitRatings }) {
     <div className="p-6 max-w-2xl mx-auto">
       <h1 className="text-2xl font-bold mb-2">Survey für {participant.name}</h1>
       <p className="text-gray-600 mb-6">Gruppe: {participant.group}</p>
-
+      
       {saved && (
-  <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-    ✓ Erfolgreich gespeichert!
-  </div>
-)}
+        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 text-center text-lg font-semibold">
+          Speichern erfolgt
+        </div>
+      )}
       
       <div className="space-y-6">
         {questions.map((q) => (
           <div key={q.key} className="border p-4 rounded">
             <label className="block font-semibold mb-3">{q.label}</label>
+            
+            <div className="mb-2 flex justify-between text-xs text-gray-600 italic">
+              <span>{q.leftLabel}</span>
+              <span>{q.rightLabel}</span>
+            </div>
+            
             <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-600">1</span>
+              <span className="text-sm text-gray-800 font-bold">1</span>
               <input
                 type="range"
                 min="1"
                 max="7"
+                step="1"
                 value={q.state}
-                onChange={(e) => q.setState(Number(e.target.value))}
-                className="flex-1"
+                onChange={(e) => q.setState(parseInt(e.target.value))}
+                className="flex-1 h-2"
+                style={{ accentColor: '#4F46E5' }}
               />
-              <span className="text-sm text-gray-600">7</span>
-              <span className="font-bold text-lg ml-2 w-8">{q.state}</span>
+              <span className="text-sm text-gray-800 font-bold">7</span>
+              <span className="font-bold text-xl ml-2 w-8 text-indigo-600">{q.state}</span>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="mt-8 flex gap-4">
+      <div className="mt-8 flex gap-4 justify-center">
         <button
           onClick={() => navigate("/")}
-          className="border px-4 py-2 rounded"
+          className="border border-gray-400 px-6 py-2 rounded hover:bg-gray-100"
         >
           Abbrechen
         </button>
         <button
           onClick={handleSubmit}
-          className="bg-green-600 text-white px-4 py-2 rounded"
+          className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
+          disabled={saved}
         >
           Speichern
         </button>
