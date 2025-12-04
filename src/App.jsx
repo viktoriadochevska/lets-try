@@ -1,59 +1,3 @@
-# --- index.html ---
-<!DOCTYPE html>
-<html lang="de">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Framing Study</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="./src/main.jsx"></script>
-  </body>
-</html>
-
-# --- package.json ---
-{
-  "name": "framing-study",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "recharts": "^2.7.2"
-  },
-  "devDependencies": {
-    "vite": "^5.0.0",
-    "@vitejs/plugin-react": "^4.0.0"
-  }
-}
-
-# --- vite.config.js ---
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-
-export default defineConfig({
-  plugins: [react()],
-  base: "./",
-});
-
-# --- src/main.jsx ---
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
-
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
-# --- src/App.jsx ---
 import React, { useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
@@ -68,25 +12,25 @@ export default function App() {
   const prompts = {
     A: {
       title: "Gruppe 1 — Gain Frame",
-      text: "Stell dir vor, dein Partner besitzt 4 von 5 Eigenschaften, die dir wichtig sind.",
+      text: "Stell dir vor, dein Partner besitzt 4 von 5 Eigenschaften, die dir wichtig sind."
     },
     B: {
       title: "Gruppe 2 — Loss Frame",
-      text: "Stell dir vor, deinem Partner fehlt 1 von 5 Eigenschaften, die dir wichtig sind.",
-    },
+      text: "Stell dir vor, deinem Partner fehlt 1 von 5 Eigenschaften, die dir wichtig sind."
+    }
   };
 
   function addParticipant() {
     if (!nameInput.trim()) return;
     const id = Date.now().toString(36);
-    let group;
-    if (groupAssignMode === "auto") {
-      const countA = participants.filter((p) => p.group === "A").length;
-      const countB = participants.filter((p) => p.group === "B").length;
-      group = countA <= countB ? "A" : "B";
-    } else {
-      group = manualGroup;
-    }
+
+    const group =
+      groupAssignMode === "auto"
+        ? participants.filter((p) => p.group === "A").length <=
+          participants.filter((p) => p.group === "B").length
+          ? "A"
+          : "B"
+        : manualGroup;
 
     setParticipants((s) => [...s, { id, name: nameInput.trim(), group, ratings: null }]);
     setNameInput("");
@@ -98,22 +42,19 @@ export default function App() {
   }
 
   function impressionScore(r) {
-    if (!r) return null;
-    return (
-      (r.success + (7 - r.satisfaction) + (7 - r.risk) + (7 - r.stay)) /
-      4
-    );
+    return (r.success + (7 - r.satisfaction) + (7 - r.risk) + (7 - r.stay)) / 4;
   }
 
   const groupAScores = participants
     .filter((p) => p.group === "A" && p.ratings)
     .map((p) => impressionScore(p.ratings));
+
   const groupBScores = participants
     .filter((p) => p.group === "B" && p.ratings)
     .map((p) => impressionScore(p.ratings));
 
-  function mean(arr) {
-    return arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0;
+  function mean(values) {
+    return values.length ? values.reduce((a, b) => a + b) / values.length : 0;
   }
 
   return (
@@ -122,6 +63,7 @@ export default function App() {
 
       <div className="border p-4 rounded mb-4">
         <h2 className="font-semibold mb-2">Teilnehmende</h2>
+
         <div className="flex gap-2 mb-3">
           <input
             value={nameInput}
@@ -174,7 +116,7 @@ export default function App() {
               <BarChart
                 data={[
                   { name: "Gain", avg: mean(groupAScores) },
-                  { name: "Loss", avg: mean(groupBScores) },
+                  { name: "Loss", avg: mean(groupBScores) }
                 ]}
               >
                 <XAxis dataKey="name" />
@@ -217,10 +159,26 @@ function SurveyModal({ participant, prompt, onCancel, onSubmit }) {
         </h3>
         <p className="text-sm text-gray-600 mb-4">{prompt.text}</p>
 
-        <Rating label="Wie wahrscheinlich ist es, dass diese Beziehung erfolgreich wäre? (1 = überhaupt nicht, 7 = sehr wahrscheinlich)" value={success} setValue={setSuccess} />
-        <Rating label="Wie zufrieden wären Sie in dieser Beziehung? (1 = sehr zufrieden, 7 = überhaupt nicht zufrieden)" value={satisfaction} setValue={setSatisfaction} />
-        <Rating label="Wie groß wäre das Risiko, diese Beziehung fortzusetzen? (1 = sehr groß, 7 = sehr gering)" value={risk} setValue={setRisk} />
-        <Rating label="Wie wahrscheinlich wäre es, in dieser Beziehung zu bleiben? (1 = sehr wahrscheinlich, 7 = sehr unwahrscheinlich)" value={stay} setValue={setStay} />
+        <Rating
+          label="Wie wahrscheinlich ist es, dass diese Beziehung erfolgreich wäre? (1 = überhaupt nicht, 7 = sehr wahrscheinlich)"
+          value={success}
+          setValue={setSuccess}
+        />
+        <Rating
+          label="Wie zufrieden wären Sie in dieser Beziehung? (1 = sehr zufrieden, 7 = überhaupt nicht zufrieden)"
+          value={satisfaction}
+          setValue={setSatisfaction}
+        />
+        <Rating
+          label="Wie groß wäre das Risiko, diese Beziehung fortzusetzen? (1 = sehr groß, 7 = sehr gering)"
+          value={risk}
+          setValue={setRisk}
+        />
+        <Rating
+          label="Wie wahrscheinlich wäre es, in dieser Beziehung zu bleiben? (1 = sehr wahrscheinlich, 7 = sehr unwahrscheinlich)"
+          value={stay}
+          setValue={setStay}
+        />
 
         <div className="flex justify-end gap-2 mt-4">
           <button onClick={onCancel} className="border px-3 py-1 rounded">
