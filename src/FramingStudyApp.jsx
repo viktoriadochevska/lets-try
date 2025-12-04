@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+const navigate = useNavigate();
+
+<button
+  onClick={() => navigate(`/survey/${p.id}`)}
+  className="border px-2 py-1 rounded text-sm"
+>
+  Survey
+</button>
+
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 export default function FramingStudyApp({ participants, setParticipants }) {
