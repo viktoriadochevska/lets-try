@@ -1,5 +1,5 @@
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 export default function SurveyPage({ participants, submitRatings }) {
   const { participantId } = useParams();
