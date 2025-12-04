@@ -69,7 +69,10 @@ export default function SurveyPage({ participants, submitRatings }) {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-2">Survey für {participant.name}</h1>
-      <p className="text-gray-600 mb-6">Gruppe: {participant.group}</p>
+      <p className=""text-gray-800 text-base leading-relaxed">
+          {instructions[participant.group]}
+        </p>
+      </div>
       
       {saved && (
         <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 text-center text-lg font-semibold">
